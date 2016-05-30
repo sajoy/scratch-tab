@@ -27,6 +27,7 @@
             #switches div {
                 cursor: pointer;
                 opacity: .5;
+                -webkit-transition: opacity .2s ease-in;
             }
 
             #switches div.show {
@@ -37,10 +38,19 @@
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
+                margin-right: 100px;
             }
 
             section {
                 margin: 30px;
+            }
+
+            section.list {
+                display: none;
+            }
+
+            section.list.show {
+                display: block;
             }
 
             section p {
@@ -55,17 +65,12 @@
                 background-color: lavenderblush;
             }
 
-
             ::selection {
                 background: lightcyan;
             }
 
             h1 {
                 font-weight: normal;
-            }
-
-            #image, #scratchpad {
-                display: none;
             }
 
             #styles {
@@ -75,31 +80,25 @@
     </head>
     <body>
         <section id='switches'>
-            <div id='toggle-image'>[visualize]</div>
             <div id='toggle-goals'>[goals]</div>
             <div id='toggle-agenda'>[agenda]</div>
             <div id='toggle-scratchpad'>[scratchpad]</div>
             <!-- <div id='toggle-styes'>[styles]</div> -->
         </section>
         <div id='container'>
-            <section id='image'>
-                <h1>visualize</h1>
-                <p contenteditable>PASTE IMAGE URL HERE</p>
-                <!-- <img src=''> -->
-            </section>
-            <section id='goals'>
+            <section id='goals' class='list'>
                 <h1>#goals</h1>
                 <p id='g-content' contenteditable></p>
             </section>
-            <section id='agenda'>
+            <section id='agenda' class='list'>
                 <h1>agenda</h1>
                 <p id='a-content' contenteditable></p>
             </section>
-            <section id='scratchpad'>
+            <section id='scratchpad' class='list'>
                 <h1>scratchpad</h1>
-                <p contenteditable>scratchy scratch scratch</p>
+                <p id='s-content' contenteditable>scratchy scratch scratch</p>
             </section>
-            <!-- <section id='styles'>
+            <!-- <section id='styles' class='list'>
                 <h1>styles</h1>
                 <dl>
                     <dt>color:</dt>
@@ -109,8 +108,7 @@
                 </dl>
             </section> -->
         </div>
-        <!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js'></script> -->
-        <script src='List.js' type='text/javascript'></script>
+        <script src='Memo.js' type='text/javascript'></script>
         <script src='scripts.js' type='text/javascript'></script>
     </body>
 </html>
