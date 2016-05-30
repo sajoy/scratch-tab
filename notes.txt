@@ -1,0 +1,49 @@
+---- User Stories / Road Map (Ambitious Level) ----
+1. As a user I want to toggle showing the agenda, goals, scratch pad, styles, and image sections
+2. As a user I want to provide a link for an image to show
+3. As a user I want to be able to pick a background color and font color
+4. As a user I want to be able to pick a bullet style
+5. As a user I want a keyboard shortcut for toggling the sections (ALT + A,G,S,V) https://developer.chrome.com/extensions/commands (but does it always happen even without a new tab open?)
+6. As a user I want to see a random motivational mantra as the title
+
+---- List class ----
+list.init()
+ - populate any data saved for list
+list.saveData( key, value )
+ - called on blur of contenteditable items?
+ - save updated text for lists in localstorage
+ - also use to save styles
+list.deleteData( key )
+ - remove data from localstorage
+
+--------------------- or are Image, Scratchpad, Goals just instances of List with a special name/keypath?
+---- Image class ----
+image.init()
+ - inherit List
+
+---- Scratchpad class ----
+scratchpad.init()
+ - inherit List
+
+---- Goals class ----
+goals.init()
+ - inherit List
+
+--------------------------------------------------------------------------------------------------------
+
+---- Agenda class ----
+agenda.init()
+ - inherit from List
+ - list out a two week agenda starting from 7 days ago
+ - populate any data saved for specific dates
+agenda.moveForward()
+ - show the next date at the bottom of the agenda
+ - or does this happen on every page load?
+ - can this happen at midnight? (of their timezone)
+ - List.deleteData()
+
+---- Agenda User Stories  ----
+1. as a user I want to see the next 7 days on my agenda
+2. as a user I want to be able to scroll up to see the previous 7 days on my agenda // are you sure? might need a data base then.. (or just don't persist after)
+3. as a user I want to edit the text next to the agenda's date
+4. as a user I want to not edit the text in last week's agenda

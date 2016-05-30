@@ -1,12 +1,11 @@
 {
-  "manifest_version": 1,
+  "manifest_version": 2,
   "name": "hour tracker",
   "version": "1.0",
-  "author": "Sarah Joy Calpo"
-  "default_locale": "en",
+  "author": "Sarah Joy Calpo",
   "description": "A fun, easy way to visualize how you spend your time",
   "chrome_url_overrides" : {
-    "newTab": "index.html"
-  },
+    "newtab": "index.html"
+  }
 
 }
