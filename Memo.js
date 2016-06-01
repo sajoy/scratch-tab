@@ -6,7 +6,7 @@
 
         addMemo ( memo ) {
             // TODO deal with duplicates... & unfriendly symbols?
-            this.all.push( memo.keypath );
+            this.all.push( memo.name );
             this.saveMemos();
         }
 
@@ -19,13 +19,8 @@
             return this.all;
         }
 
-        // getMemo ( memo ) {
-        //     var index = this.all.indexOf( memo );
-        //     return this.all[]
-        // }
-
         deleteMemo ( memo ) {
-            var index = this.all.indexOf( memo.keypath );
+            var index = this.all.indexOf( memo.name );
             this.all.splice( index, 1 );
             this.saveMemos();
         }

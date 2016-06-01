@@ -2,16 +2,18 @@
 
     function initMemoView ( memo ) {
 
-
         var saveText = function () {
             this.saveData( 'content', this.ele.innerHTML );
         }
 
+        // TODO create newElement helper function
         // create memo element
         var memoEle = document.createElement( 'section' );
         var contentID = memo.name + '-content';
         var memoContent = document.createElement( 'p' );
         memoEle.setAttribute('id', memo.name + 'section');
+        memoEle.classList.add( 'list' );
+        memoEle.classList.add( 'show' );
         memoEle.innerHTML = '<h1>' + memo.name + '</h1>';
 
         memoContent.setAttribute( 'contenteditable', true );
@@ -24,20 +26,20 @@
         document.getElementById( 'container' ).appendChild( memoEle );
 
 
-
-
         // create memo switch
-        var toggleMemo = function (e) {
-            this.saveData( 'show', true );
-            this.ele.parentElement.classList.add( 'show' );
+        var toggleMemo = function ( e ) {
+            var newStatus = !this.show,
+                classFunc = newStatus ? 'add' : 'remove';
+            this.saveData( 'show', newStatus );
+            this.ele.parentElement.classList[classFunc]( 'show' );
         }
 
-        var switchEle = document.createElement('div');
-        switchEle.setAttribute('id', memo.name + 'toggle');
-        switchEle.classList.add('switch');
+        var switchEle = document.createElement( 'div' );
+        switchEle.setAttribute('id', memo.name + 'toggle' );
+        switchEle.classList.add( 'switch' );
         switchEle.innerHTML = '[' + memo.name + ']';
         switchEle.addEventListener( 'click', toggleMemo.bind( memo ) );
-        document.getElementById('switches').insertBefore( switchEle, document.getElementById('add') );
+        document.getElementById( 'switches' ).insertBefore( switchEle, document.getElementById( 'add' ) );
 
     }
 
@@ -46,7 +48,7 @@
         addButton.addEventListener( 'click', askForName );
 
         function askForName(e) {
-            e.stopPropogation;
+            // e.stopPropogation;
             toggleButton( 'add' );
 
             // listen for enter key
