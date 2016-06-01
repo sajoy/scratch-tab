@@ -11,6 +11,7 @@
 
     // add create button
     // meh passing through the memos?
-    module.addButton( memos);
+    module.addButton( memos );
+    module.deleteButton( memos );
 
 })( window );

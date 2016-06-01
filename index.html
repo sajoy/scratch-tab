@@ -34,6 +34,14 @@
                 opacity: 1;
             }
 
+            #switches div.delete {
+                color: red;
+            }
+
+            #switches div.delete:not(#delete):hover {
+                text-decoration: line-through;
+            }
+
             #container {
                 display: flex;
                 flex-direction: row;
@@ -81,7 +89,8 @@
     <body>
         <section id='switches'>
             <!-- <div id='toggle-styes'>[styles]</div> -->
-            <div>[<span id='add-memo'>+</span>]</div>
+            <div id='add'>[<span id='add-memo'>+</span>]</div>
+            <div id='delete'>[<span id='delete-memo'>x</span>]</div>
         </section>
         <div id='container'>
         </div>

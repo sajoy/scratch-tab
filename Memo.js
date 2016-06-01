@@ -5,13 +5,24 @@
         }
 
         addMemo ( memo ) {
-            // TODO deal with duplicates...
+            // TODO deal with duplicates... & unfriendly symbols?
             this.all.push( memo.keypath );
+            this.saveMemos();
+        }
+
+        saveMemos () {
             localStorage.setItem( 'memos', JSON.stringify( this.all ) );
         }
 
         getMemos () {
-            return localStorage['memos'] ? JSON.parse( localStorage['memos'] ) : this.all;
+            this.all = localStorage['memos'] ? JSON.parse( localStorage['memos'] ) : [];
+            return this.all;
+        }
+
+        deleteMemo ( memo ) {
+            var index = this.all.indexOf( memo.keypath );
+            this.all.splice( index, 1 );
+            this.saveMemos();
         }
     }
 
@@ -19,39 +30,29 @@
         constructor ( keypath ) {
             this.keypath = keypath;
             // TODO create html safe keypath
-
-            // this.toggleId = 'toggle-' + this.keypath;
-            // this.contentId = this.keypath[0] + '-content';
-            // this.showId = this.keypath + 'show';
-            //
-            // this.ele = document.getElementById( this.contentId );
-            // this.switch = document.getElementById( this.toggleId );
-            //
-            // this.show = localStorage[this.showId] ? JSON.parse(localStorage[this.showId]) : false;
-            //
-            // this.saveText = this._saveText;
-            // this.ele.addEventListener( 'blur', this.saveText.bind( this ) );
-            //
+            this.saveText = this._saveText;
             this.toggle = this._toggle;
-            // this.switch.addEventListener( 'click', this.toggle.bind( this) );
+        }
+
+        bindElement ( ele ) {
+            this.ele = ele;
         }
 
         _show () {
             this.ele.parentElement.classList.add( 'show' );
-            this.switch.classList.add( 'show' );
         }
 
         _toggle () {
+            // TODO fix toggle
             if ( this.show ) {
                 this.ele.parentElement.classList.remove( 'show' );
-                this.switch.classList.remove( 'show' );
                 this.show = false;
             }
             else {
                 this._show();
                 this.show = true;
             }
-            this._saveData( this.showId, this.show );
+            this._saveData( this.showId, JSON.stringify( this.show ) );
         }
 
         _saveText () {
@@ -59,27 +60,28 @@
         }
 
         _saveData ( keypath, data ) {
-            // save data for each memo as JSON? instead of separate keys
-            localStorage.setItem( keypath, data );
+            var d = {
+                content: data,
+                show: this.show,
+            }
+            localStorage.setItem( keypath, JSON.stringify( d ) );
         }
 
         loadData () {
-            var content = { 'image': 'PASTE IMAGE URL HERE',
-                            'scratchpad': 'sharpen them kitty nails',
-                            'agenda': 'aka a fancy to do list',
-                            'goals': 'HAHAHAHHAHAHAHAHAH'
-                          };
+            var loadedData = { content: 'random is c00l' };
+            
+            if ( localStorage[this.keypath] ) {
+                loadedData = JSON.parse( localStorage[this.keypath] );
+            }
 
-            this.ele.innerHTML = localStorage[this.keypath] || content[this.keypath];
-            if ( this.show ) { this._show(); }
+            this.ele.innerHTML = loadedData.content;
+            if ( loadedData.show ) { this._show(); }
         }
 
         deleteData ( keypath ) {
             localStorage.removeItem( this.keypath );
         }
     }
-
-
 
     module.Memos = Memos;
     module.Memo = Memo;
