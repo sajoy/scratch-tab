@@ -2,25 +2,41 @@
 
     function initMemoView ( memo ) {
 
-        // create memo element
-        var memoEle = document.createElement('section');
-        var contentID = memo.keypath + '-content';
-        memoEle.setAttribute('id', memo.keypath + 'section');
-        memoEle.innerHTML = '<h1>' + memo.keypath + '</h1>' + '<p id="' + contentID + '" contenteditable></p>';
 
-        var memoContent = document.getElementById(contentID);
-        memoContent.addEventListener( 'blur', memo.saveText.bind( memo ) );
+        var saveText = function () {
+            this.saveData( 'content', this.ele.innerHTML );
+        }
+
+        // create memo element
+        var memoEle = document.createElement( 'section' );
+        var contentID = memo.name + '-content';
+        var memoContent = document.createElement( 'p' );
+        memoEle.setAttribute('id', memo.name + 'section');
+        memoEle.innerHTML = '<h1>' + memo.name + '</h1>';
+
+        memoContent.setAttribute( 'contenteditable', true );
+        memoContent.setAttribute( 'id', contentID );
+        memoContent.innerHTML = memo.content;
+        memoContent.addEventListener( 'blur', saveText.bind( memo ) );
         memo.bindElement( memoContent );
-        memo.loadData();
-        document.getElementById('container').appendChild(memoEle);
+
+        memoEle.appendChild( memoContent );
+        document.getElementById( 'container' ).appendChild( memoEle );
+
+
 
 
         // create memo switch
+        var toggleMemo = function (e) {
+            this.saveData( 'show', true );
+            this.ele.parentElement.classList.add( 'show' );
+        }
+
         var switchEle = document.createElement('div');
-        switchEle.setAttribute('id', memo.keypath + 'toggle');
+        switchEle.setAttribute('id', memo.name + 'toggle');
         switchEle.classList.add('switch');
-        switchEle.innerHTML = '[' + memo.keypath + ']';
-        switchEle.addEventListener( 'click', memo.toggle.bind( memo ) );
+        switchEle.innerHTML = '[' + memo.name + ']';
+        switchEle.addEventListener( 'click', toggleMemo.bind( memo ) );
         document.getElementById('switches').insertBefore( switchEle, document.getElementById('add') );
 
     }
@@ -29,7 +45,8 @@
         var addButton = document.getElementById( 'add-memo' );
         addButton.addEventListener( 'click', askForName );
 
-        function askForName() {
+        function askForName(e) {
+            e.stopPropogation;
             toggleButton( 'add' );
 
             // listen for enter key
@@ -80,6 +97,18 @@
             for( var i = 0; i < switches.length; i++ ) {
                 switches[i].classList[classFunc]('delete');
                 switches[i].classList[classFunc]('show');
+            }
+
+            var deleteEvent = function (e) {
+                e.stopPropogation;
+                console.log( e.target.innerHTML );
+            }
+
+            if ( deleting ) {
+                document.getElementById('switches').addEventListener('click', deleteEvent );
+            }
+            else {
+                document.getElementById('switches').removeEventListener('click', deleteEvent );
             }
 
             // TODO how to attach a DIFFERENT event listerner on the delete switches D:
