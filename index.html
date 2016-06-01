@@ -99,10 +99,8 @@
         <script src='memoView.js' type='text/javascript'></script>
         <script>
             // get initial data
-            var memos = new app.Memos(),
-                memosNames = memos.getMemos();
-
-            memosNames.forEach( function ( name ) {
+            var memos = new app.Memos();
+            memos.all.forEach( function ( name ) {
                 var memo = new app.Memo( name );
                 app.initMemoView( memo );
             });

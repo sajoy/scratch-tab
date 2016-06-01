@@ -20,7 +20,7 @@
         memoContent.setAttribute( 'id', contentID );
         memoContent.innerHTML = memo.content;
         memoContent.addEventListener( 'blur', saveText.bind( memo ) );
-        memo.bindElement( memoContent );
+        memo.bindElement( 'ele', memoContent );
 
         memoEle.appendChild( memoContent );
         document.getElementById( 'container' ).appendChild( memoEle );
@@ -33,6 +33,7 @@
                 classFunc = newStatus ? 'add' : 'remove';
                 memo.saveData( 'show', newStatus );
                 memo.ele.parentElement.classList[classFunc]( 'show' );
+                memo.toggleEle.classList[classFunc]( 'show' );
             }
         }
 
@@ -53,9 +54,11 @@
         var switchEle = document.createElement( 'div' );
         switchEle.setAttribute('id', memo.name + 'toggle' );
         switchEle.classList.add( 'switch' );
+        switchEle.classList.add( 'show' );
         switchEle.innerHTML = '[' + memo.name + ']';
         document.getElementById( 'switches' ).insertBefore( switchEle, document.getElementById( 'add' ) );
 
+        memo.bindElement( 'toggleEle', switchEle );
         switchEle.parentElement.addEventListener( 'click', toggleMemo );
         switchEle.addEventListener( 'click', deleteMemo.bind( memo ) );
 
@@ -71,15 +74,16 @@
             // listen for enter key
             // TODO LOL unbind? remove? unsubscribe make it stop somehow pls. (fix bug)
 
-            document.onkeypress = function ( event ) {
+            addButton.addEventListener( 'keydown', function ( event ) {
+                if ( app.action !== 'adding' ) { return; }
                 if ( event.keyCode === 13 || event.which === 13 ) {
-                    // strip the name here?
+                    console.log( 'new ' );
                     var newMemo = new app.Memo( event.target.innerHTML );
                     app.memos.addMemo( newMemo );
                     app.initMemoView( newMemo );
                     toggleButton( 'remove' );
                 }
-            }
+            });
         }
 
         function toggleButton ( status ) {
@@ -89,18 +93,21 @@
                 html = checkStatus ? 'enter a name' : '+',
                 classFunc = checkStatus ? 'add' : 'remove',
                 focus = checkStatus ? 'focus' : 'blur';
+                action = checkStatus ? 'adding' : null;
 
+            app.action = action
             addButton.innerHTML = html;
             addButton.parentElement.classList[classFunc]( 'show' );
             addButton.setAttribute( 'contenteditable', edit );
             addButton[focus]();
+
+            document.getElementById( 'delete' ).style.display = checkStatus ? 'none' : 'initial';
         }
     }
 
     function deleteButton () {
 
         var deleteButton = document.getElementById( 'delete-memo' );
-
         deleteButton.addEventListener( 'click', toggleDelete );
 
         var deleting;
@@ -120,9 +127,6 @@
                 switches[i].classList[classFunc]('delete');
                 switches[i].classList[classFunc]('show');
             }
-
-            // TODO how to attach a DIFFERENT event listerner on the delete switches D:
-            // add to #switches instead then stopPropogation before it hits the opening click, figure out what was the target id to find the memo
         }
     }
 

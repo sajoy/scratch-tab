@@ -1,7 +1,7 @@
 ( function ( module ) {
     class Memos {
         constructor () {
-            this.all = [];
+            this.all = getData( 'memos' ) || [];
         }
 
         addMemo ( memo ) {
@@ -11,12 +11,7 @@
         }
 
         saveMemos () {
-            localStorage.setItem( 'memos', JSON.stringify( this.all ) );
-        }
-
-        getMemos () {
-            this.all = localStorage['memos'] ? JSON.parse( localStorage['memos'] ) : [];
-            return this.all;
+            setData( 'memos', this.all );
         }
 
         deleteMemo ( memo ) {
@@ -41,8 +36,8 @@
             this.loadData = this._loadData;
         }
 
-        bindElement ( ele ) {
-            this.ele = ele;
+        bindElement ( name, ele ) {
+            this[name] = ele;
         }
 
         _saveData ( keypath, newData ) {
@@ -53,7 +48,7 @@
         }
 
         _loadData ( keypath ) {
-            var data = getData( this.name );
+            var data = getData( this.name ) || {};
             return data[keypath];
         }
 
@@ -64,7 +59,7 @@
     }
 
     function getData ( keypath ) {
-        var data = {};
+        var data = null;
 
         if ( localStorage[keypath] ) {
             data = JSON.parse( localStorage[keypath] );
