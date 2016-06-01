@@ -2,6 +2,7 @@
 
     class Memo {
         constructor ( keypath ) {
+            this.name = keypath;
             this.keypath = keypath;
 
             this.toggleId = 'toggle-' + this.keypath;
@@ -18,6 +19,8 @@
 
             this.toggle = this._toggle;
             this.switch.addEventListener( 'click', this.toggle.bind( this) );
+
+            // TODO create html elements
         }
 
         _show () {
@@ -43,6 +46,7 @@
         }
 
         _saveData ( keypath, data ) {
+            // save data for each memo as JSON? instead of separate keys
             localStorage.setItem( keypath, data );
         }
 
