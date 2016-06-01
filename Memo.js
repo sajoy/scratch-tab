@@ -1,26 +1,51 @@
 ( function ( window ) {
+    class Memos {
+        constructor () {
+            this.all = [];
+        }
+
+        addMemo ( memo ) {
+            this.all.push( memo.keypath );
+            localStorage.setItem( 'memos', JSON.stringify( this.all ) );
+        }
+
+        getMemos () {
+            return localStorage['memos'] ? JSON.parse( localStorage['memos'] ) : this.all;
+        }
+    }
 
     class Memo {
         constructor ( keypath ) {
-            this.name = keypath;
             this.keypath = keypath;
 
-            this.toggleId = 'toggle-' + this.keypath;
-            this.contentId = this.keypath[0] + '-content';
-            this.showId = this.keypath + 'show';
-
-            this.ele = document.getElementById( this.contentId );
-            this.switch = document.getElementById( this.toggleId );
-
-            this.show = localStorage[this.showId] ? JSON.parse(localStorage[this.showId]) : false;
-
-            this.saveText = this._saveText;
-            this.ele.addEventListener( 'blur', this.saveText.bind( this ) );
-
-            this.toggle = this._toggle;
-            this.switch.addEventListener( 'click', this.toggle.bind( this) );
 
             // TODO create html elements
+            // is this the best place?
+
+            // section
+            // <section id='goals' class='list'>
+            //     <h1>#goals</h1>
+            //     <p id='g-content' contenteditable></p>
+            // </section>
+
+            // toggle
+            // <div id='toggle-styes'>[styles]</div>
+            //
+            //
+            // this.toggleId = 'toggle-' + this.keypath;
+            // this.contentId = this.keypath[0] + '-content';
+            // this.showId = this.keypath + 'show';
+            //
+            // this.ele = document.getElementById( this.contentId );
+            // this.switch = document.getElementById( this.toggleId );
+            //
+            // this.show = localStorage[this.showId] ? JSON.parse(localStorage[this.showId]) : false;
+            //
+            // this.saveText = this._saveText;
+            // this.ele.addEventListener( 'blur', this.saveText.bind( this ) );
+            //
+            // this.toggle = this._toggle;
+            // this.switch.addEventListener( 'click', this.toggle.bind( this) );
         }
 
         _show () {
@@ -66,6 +91,9 @@
         }
     }
 
+
+
+    window.Memos = Memos;
     window.Memo = Memo;
 
 })( window );
