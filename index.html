@@ -4,11 +4,16 @@
         <meta charset="utf-8">
         <title>you got this ~*</title>
         <style>
+
+        /* TODO move styles to separate file
+                add prefixes
+
+        */
             body, html {
                 font-family: monospace;
                 height: 100%;
                 width: 100%;
-                overflow-y: hidden;
+                /*overflow-y: hidden;*/
                 padding: 0;
                 margin: 0;
                 background-color: #FEFEFA;
@@ -16,12 +21,12 @@
             }
 
             #switches {
-                position: absolute;
-                bottom: 0;
-                left: 0;
                 display: flex;
                 flex-direction: row;
-                margin: 10px;
+                justify-content: flex-end;
+                margin: 0;
+                padding: 15px;
+                background: papayawhip;
             }
 
             #switches div {
@@ -47,6 +52,7 @@
                 flex-direction: row;
                 justify-content: flex-end;
                 margin-right: 100px;
+                flex-wrap: wrap;
             }
 
             section {
@@ -94,20 +100,10 @@
         </section>
         <div id='container'>
         </div>
-        <script src='scripts.js' type='text/javascript'></script>
+        <script src='App.js' type='text/javascript'></script>
         <script src='Memo.js' type='text/javascript'></script>
         <script src='memoView.js' type='text/javascript'></script>
-        <script>
-            // get initial data
-            var memos = new app.Memos();
-            memos.all.forEach( function ( name ) {
-                var memo = new app.Memo( name );
-                app.initMemoView( memo );
-            });
+        <script src='scripts.js' type='text/javascript'></script>
 
-            app.memos = memos;
-            app.addButton();
-            app.deleteButton();
-        </script>
     </body>
 </html>

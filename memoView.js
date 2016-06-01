@@ -11,16 +11,19 @@
         var memoEle = document.createElement( 'section' );
         var contentID = memo.name + '-content';
         var memoContent = document.createElement( 'p' );
+        memo.bindElement( 'ele', memoContent );
+        memo.loadData();
+
         memoEle.setAttribute('id', memo.name + 'section');
         memoEle.classList.add( 'list' );
-        memoEle.classList.add( 'show' );
         memoEle.innerHTML = '<h1>' + memo.name + '</h1>';
+        if ( memo.show ) { memoEle.classList.add( 'show' ); }
 
         memoContent.setAttribute( 'contenteditable', true );
         memoContent.setAttribute( 'id', contentID );
         memoContent.innerHTML = memo.content;
         memoContent.addEventListener( 'blur', saveText.bind( memo ) );
-        memo.bindElement( 'ele', memoContent );
+
 
         memoEle.appendChild( memoContent );
         document.getElementById( 'container' ).appendChild( memoEle );
@@ -54,7 +57,7 @@
         var switchEle = document.createElement( 'div' );
         switchEle.setAttribute('id', memo.name + 'toggle' );
         switchEle.classList.add( 'switch' );
-        switchEle.classList.add( 'show' );
+        if ( memo.show ) { switchEle.classList.add( 'show' ); }
         switchEle.innerHTML = '[' + memo.name + ']';
         document.getElementById( 'switches' ).insertBefore( switchEle, document.getElementById( 'add' ) );
 
@@ -72,12 +75,9 @@
             toggleButton( 'add' );
 
             // listen for enter key
-            // TODO LOL unbind? remove? unsubscribe make it stop somehow pls. (fix bug)
-
             addButton.addEventListener( 'keydown', function ( event ) {
                 if ( app.action !== 'adding' ) { return; }
                 if ( event.keyCode === 13 || event.which === 13 ) {
-                    console.log( 'new ' );
                     var newMemo = new app.Memo( event.target.innerHTML );
                     app.memos.addMemo( newMemo );
                     app.initMemoView( newMemo );
@@ -129,7 +129,6 @@
             }
         }
     }
-
 
     app.initMemoView = initMemoView;
     app.addButton = addButton;

@@ -29,7 +29,7 @@
             this.name = name;
             // TODO create html safe name
 
-            this.show = this._loadData( 'show' ) || true;
+            this.show = this._loadData( 'show' ) !== null ? this._loadData( 'show' ) : true;
             this.content = this._loadData( 'content' ) || 'rand0m yeaH';
 
             this.saveData = this._saveData;
