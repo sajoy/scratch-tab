@@ -1,4 +1,4 @@
-( function ( module ) {
+( function ( app ) {
 
     function initMemoView ( memo ) {
 
@@ -28,37 +28,55 @@
 
         // create memo switch
         var toggleMemo = function ( e ) {
-            var newStatus = !this.show,
+            if ( '[' + memo.name + ']' === e.target.innerHTML ) {
+                var newStatus = !memo.show,
                 classFunc = newStatus ? 'add' : 'remove';
-            this.saveData( 'show', newStatus );
-            this.ele.parentElement.classList[classFunc]( 'show' );
+                memo.saveData( 'show', newStatus );
+                memo.ele.parentElement.classList[classFunc]( 'show' );
+            }
+        }
+
+        var deleteMemo = function ( e ) {
+            if ( app.action === 'deleting' ) {
+                e.stopPropagation();
+                app.memos.deleteMemo( this );
+
+                ['section', 'toggle'].forEach( function ( element ) {
+                    var ele = document.getElementById( memo.name + element ),
+                    parent = ele.parentElement;
+
+                    parent.removeChild( ele );
+                });
+            }
         }
 
         var switchEle = document.createElement( 'div' );
         switchEle.setAttribute('id', memo.name + 'toggle' );
         switchEle.classList.add( 'switch' );
         switchEle.innerHTML = '[' + memo.name + ']';
-        switchEle.addEventListener( 'click', toggleMemo.bind( memo ) );
         document.getElementById( 'switches' ).insertBefore( switchEle, document.getElementById( 'add' ) );
+
+        switchEle.parentElement.addEventListener( 'click', toggleMemo );
+        switchEle.addEventListener( 'click', deleteMemo.bind( memo ) );
 
     }
 
-    function addButton ( memos ) {
+    function addButton () {
         var addButton = document.getElementById( 'add-memo' );
         addButton.addEventListener( 'click', askForName );
 
         function askForName(e) {
-            // e.stopPropogation;
             toggleButton( 'add' );
 
             // listen for enter key
             // TODO LOL unbind? remove? unsubscribe make it stop somehow pls. (fix bug)
+
             document.onkeypress = function ( event ) {
-                // TODO be MAC friendly or whatever
                 if ( event.keyCode === 13 || event.which === 13 ) {
-                    var newMemo = new Memo( event.target.innerHTML );
-                    memos.addMemo( newMemo );
-                    module.initMemoView( newMemo );
+                    // strip the name here?
+                    var newMemo = new app.Memo( event.target.innerHTML );
+                    app.memos.addMemo( newMemo );
+                    app.initMemoView( newMemo );
                     toggleButton( 'remove' );
                 }
             }
@@ -79,7 +97,7 @@
         }
     }
 
-    function deleteButton ( memos ) {
+    function deleteButton () {
 
         var deleteButton = document.getElementById( 'delete-memo' );
 
@@ -88,6 +106,8 @@
         var deleting;
         function toggleDelete() {
             deleting = deleting ? false : true;
+            app.action = deleting ? 'deleting' : null;
+
             var switches = document.getElementsByClassName('switch');
             var classFunc = deleting ? 'add' : 'remove';
 
@@ -101,26 +121,14 @@
                 switches[i].classList[classFunc]('show');
             }
 
-            var deleteEvent = function (e) {
-                e.stopPropogation;
-                console.log( e.target.innerHTML );
-            }
-
-            if ( deleting ) {
-                document.getElementById('switches').addEventListener('click', deleteEvent );
-            }
-            else {
-                document.getElementById('switches').removeEventListener('click', deleteEvent );
-            }
-
             // TODO how to attach a DIFFERENT event listerner on the delete switches D:
             // add to #switches instead then stopPropogation before it hits the opening click, figure out what was the target id to find the memo
         }
     }
 
 
-    module.initMemoView = initMemoView;
-    module.addButton = addButton;
-    module.deleteButton = deleteButton;
+    app.initMemoView = initMemoView;
+    app.addButton = addButton;
+    app.deleteButton = deleteButton;
 
-})( window );
+})( window.app );

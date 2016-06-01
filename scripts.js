@@ -1,17 +1,13 @@
 ( function ( module ) {
 
-    // get initial data
-    var memos = new Memos(),
-        memosNames = memos.getMemos();
+    class App {
+        constructor () {
+            this.action = null;
+            this.styles = {};
+        }
+    }
 
-    memosNames.forEach( function ( name ) {
-        var memo = new Memo( name );
-        module.initMemoView( memo );
-    });
-
-    // add create button
-    // meh passing through the memos?
-    module.addButton( memos );
-    module.deleteButton( memos );
+    var app = new App();
+    module.app = app;
 
 })( window );

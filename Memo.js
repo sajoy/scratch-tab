@@ -21,8 +21,11 @@
 
         deleteMemo ( memo ) {
             var index = this.all.indexOf( memo.name );
-            this.all.splice( index, 1 );
-            this.saveMemos();
+            if ( index !== -1 ) {
+                this.all.splice( index, 1 );
+                this.saveMemos();
+                deleteData( memo.name );
+            }
         }
     }
 
@@ -54,9 +57,6 @@
             return data[keypath];
         }
 
-        deleteData ( name ) {
-            localStorage.removeItem( this.name );
-        }
     }
 
     function setData ( keypath, data ) {
@@ -74,7 +74,11 @@
 
     }
 
+    function deleteData ( keypath ) {
+        localStorage.removeItem( keypath );
+    }
+
     module.Memos = Memos;
     module.Memo = Memo;
 
-})( window );
+})( window.app );

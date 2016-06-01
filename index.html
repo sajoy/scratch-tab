@@ -94,8 +94,22 @@
         </section>
         <div id='container'>
         </div>
+        <script src='scripts.js' type='text/javascript'></script>
         <script src='Memo.js' type='text/javascript'></script>
         <script src='memoView.js' type='text/javascript'></script>
-        <script src='scripts.js' type='text/javascript'></script>
+        <script>
+            // get initial data
+            var memos = new app.Memos(),
+                memosNames = memos.getMemos();
+
+            memosNames.forEach( function ( name ) {
+                var memo = new app.Memo( name );
+                app.initMemoView( memo );
+            });
+
+            app.memos = memos;
+            app.addButton();
+            app.deleteButton();
+        </script>
     </body>
 </html>
