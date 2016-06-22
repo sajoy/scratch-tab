@@ -1,4 +1,13 @@
 ( function ( module ) {
+
+
+    class Scratchpad {
+        constructor () {
+            this.action = null;
+            this.styles = {};
+        }
+    }
+
     class Memos {
         constructor () {
             this.all = getData( 'memos' ) || [];
@@ -31,9 +40,12 @@
 
             this.show = this._loadData( 'show' ) !== null ? this._loadData( 'show' ) : true;
             this.content = this._loadData( 'content' ) || 'rand0m yeaH';
+            // TODO add random starter strings
 
             this.saveData = this._saveData;
             this.loadData = this._loadData;
+
+            // TODO on very first load, have hello memo
         }
 
         bindElement ( name, ele ) {
@@ -54,6 +66,8 @@
 
     }
 
+    // TODO create Data class?
+
     function setData ( keypath, data ) {
         localStorage.setItem( keypath, JSON.stringify( data ) );
     }
@@ -66,14 +80,16 @@
         }
 
         return data;
-
     }
 
     function deleteData ( keypath ) {
         localStorage.removeItem( keypath );
     }
 
-    module.Memos = Memos;
-    module.Memo = Memo;
 
-})( window.app );
+    var app = new Scratchpad();
+    module.app = app;
+    app.Memos = Memos;
+    app.Memo = Memo;
+
+})( window );

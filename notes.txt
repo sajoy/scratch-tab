@@ -47,3 +47,32 @@ agenda.moveForward()
 2. as a user I want to be able to scroll up to see the previous 7 days on my agenda // are you sure? might need a data base then.. (or just don't persist after)
 3. as a user I want to edit the text next to the agenda's date
 4. as a user I want to not edit the text in last week's agenda
+
+--------------------------------------------------------------------------------------------------------
+
+a user's first note
+
+note: scratch pad
+
+_WHAT IS THIS_
+Kinda like a scratching post for your sharp wit.
+Or just, you know, virtual scratch paper.
+I'll follow you around in every single new tab you open.
+
+
+_HOW TO DO STUFF_
+Create [+] and delete [x] new notes from the menu in the bottom left.
+Click a note's name in the menu to show or hide it.
+To edit a note's name or placement:
+    hover over it's name (^up there, not in the menu) then click [edit].
+Click [s] to edit the theme colors, tab title and default note content.
+
+
+_FYI_
+All your musings, kill lists, etc are saved locally to your browser.
+I promise I'm not stalking you IRL.
+View source code & roadmap at github.com/sajoy/scratch-tab
+
+
+✌️ & ❤︎
+    sj

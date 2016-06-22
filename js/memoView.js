@@ -28,8 +28,23 @@
         memoEle.appendChild( memoContent );
         document.getElementById( 'container' ).appendChild( memoEle );
 
+        // TODO
+        // - add [edit]
+        //   - show next to title on hover over title
+        //   - show below title:
+        //     - name
+        //     - position (number)
+        // - add [styles] section
+        //   - header color
+        //   - background color
+        //   - memo color
+        //   - memo:focus color
+        //   - highlight color
+        //   - tab title
+        //   - horizontal vs vertical scroll*
+        //   - memo default value ( rand0m yeaH )
 
-        // create memo switch
+        // event functions
         var toggleMemo = function ( e ) {
             if ( '[' + memo.name + ']' === e.target.innerHTML ) {
                 var newStatus = !memo.show,
@@ -54,12 +69,13 @@
             }
         }
 
+        // create memo switch
         var switchEle = document.createElement( 'div' );
         switchEle.setAttribute('id', memo.name + 'toggle' );
         switchEle.classList.add( 'switch' );
         if ( memo.show ) { switchEle.classList.add( 'show' ); }
         switchEle.innerHTML = '[' + memo.name + ']';
-        document.getElementById( 'switches' ).insertBefore( switchEle, document.getElementById( 'add' ) );
+        document.getElementById( 'switches' ).insertBefore( switchEle, document.getElementById( 'action-switches' ) );
 
         memo.bindElement( 'toggleEle', switchEle );
         switchEle.parentElement.addEventListener( 'click', toggleMemo );

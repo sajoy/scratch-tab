@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
-  "name": "hour tracker",
+  "name": "scratch tab",
   "version": "1.0",
   "author": "Sarah Joy Calpo",
-  "description": "A fun, easy way to visualize how you spend your time",
+  "description": "turns every New Tab into a scratch pad",
   "chrome_url_overrides" : {
     "newtab": "index.html"
   }
