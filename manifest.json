@@ -6,6 +6,9 @@
   "description": "turns every New Tab into a scratch pad",
   "chrome_url_overrides" : {
     "newtab": "index.html"
-  }
+},
+"icons": {
+    "128": "icon.png"
+}
 
 }

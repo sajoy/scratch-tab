@@ -19,6 +19,9 @@ in no particular order; FYI we're taking the scenic (aka slow) route.
 - allow custom tab title
 - add hide/show all buttons
 
+# known bugs
+- list of notes probably will not scroll
+
 # contributing
 
 If you want to, have at it! Here's what you need to know:
