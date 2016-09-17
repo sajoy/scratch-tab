@@ -36,16 +36,13 @@
     class Memo {
         constructor ( name ) {
             this.name = name;
-            // TODO create html safe name
+            this.eleName = name.replace(/ /g, '-');
 
-            this.show = this._loadData( 'show' ) !== null ? this._loadData( 'show' ) : true;
-            this.content = this._loadData( 'content' ) || 'rand0m yeaH';
-            // TODO add random starter strings
+            this.show = this._loadData( 'show' ) == null ? true : this._loadData( 'show' );
+            this.content = this._loadData( 'content' ) || ">>>>> words & stuff <<<<<";
 
             this.saveData = this._saveData;
             this.loadData = this._loadData;
-
-            // TODO on very first load, have hello memo
         }
 
         bindElement ( name, ele ) {

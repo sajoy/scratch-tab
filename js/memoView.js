@@ -7,25 +7,26 @@
         }
 
         // TODO create newElement helper function
+
+
         // create memo element
         var memoEle = document.createElement( 'section' );
-        var contentID = memo.name + '-content';
-        var memoContent = document.createElement( 'p' );
-        memo.bindElement( 'ele', memoContent );
+        var contentID = memo.eleName + '-content';
+        var memoContentEle = document.createElement( 'p' );
+        memo.bindElement( 'ele', memoContentEle );
         memo.loadData();
 
-        memoEle.setAttribute('id', memo.name + 'section');
+        memoEle.setAttribute('id', memo.eleName + '-section');
         memoEle.classList.add( 'list' );
         memoEle.innerHTML = '<h1>' + memo.name + '</h1>';
         if ( memo.show ) { memoEle.classList.add( 'show' ); }
 
-        memoContent.setAttribute( 'contenteditable', true );
-        memoContent.setAttribute( 'id', contentID );
-        memoContent.innerHTML = memo.content;
-        memoContent.addEventListener( 'blur', saveText.bind( memo ) );
+        memoContentEle.setAttribute( 'contenteditable', true );
+        memoContentEle.setAttribute( 'id', contentID );
+        memoContentEle.innerHTML = memo.content;
+        memoContentEle.addEventListener( 'blur', saveText.bind( memo ) );
 
-
-        memoEle.appendChild( memoContent );
+        memoEle.appendChild( memoContentEle );
         document.getElementById( 'container' ).appendChild( memoEle );
 
 
@@ -45,8 +46,8 @@
                 e.stopPropagation();
                 app.memos.deleteMemo( this );
 
-                ['section', 'toggle'].forEach( function ( element ) {
-                    var ele = document.getElementById( memo.name + element ),
+                ['-section', '-toggle'].forEach( function ( element ) {
+                    var ele = document.getElementById( memo.eleName + element ),
                     parent = ele.parentElement;
 
                     parent.removeChild( ele );
@@ -56,7 +57,7 @@
 
         // create memo switch
         var switchEle = document.createElement( 'div' );
-        switchEle.setAttribute('id', memo.name + 'toggle' );
+        switchEle.setAttribute('id', memo.eleName + '-toggle' );
         switchEle.classList.add( 'switch' );
         if ( memo.show ) { switchEle.classList.add( 'show' ); }
         switchEle.innerHTML = '[' + memo.name + ']';
@@ -90,6 +91,8 @@
                 var newMemo = new app.Memo( event.target.innerHTML );
                 app.memos.addMemo( newMemo );
                 app.initMemoView( newMemo );
+                // newMemo.focus();
+                goBack();
             }
         });
     }
@@ -98,7 +101,7 @@
         var adding = app.action == 'adding',
             classFunc = adding ? 'add' : 'remove';
 
-        addButtonEle.innerHTML = adding ? 'enter a name' : '+';
+        addButtonEle.innerHTML = adding ? 'new name' : '+';
         addButtonEle.parentElement.classList[classFunc]( 'show' );
         addButtonEle.setAttribute( 'contenteditable', adding );
         addButtonEle.focus();
@@ -123,7 +126,6 @@
 
         for( var i = 0; i < switches.length; i++ ) {
             switches[i].classList[classFunc]('delete');
-            switches[i].classList[classFunc]('show');
         }
     }
 

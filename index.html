@@ -38,7 +38,7 @@
             #switches div:not(#action-switches) {
             }
 
-            #switches div {
+            #switches div.switch {
                 cursor: pointer;
                 opacity: .5;
                 -webkit-transition: opacity .2s ease-in;
@@ -68,6 +68,20 @@
             }
 
             #action-switches #back { display: none; }
+            #action-switches #add-memo:focus {
+                outline: none;
+            }
+
+            #action-switches span:hover, #action-switches div:hover {
+                cursor: pointer;
+                opacity: .5;
+            }
+
+            /* from https://codepen.io/flesler/pen/AEIFc */
+            /*[contenteditable=true]:empty:before {
+                content: attr(placeholder);
+                display: inline-block;
+            }*/
 
             #container {
                 display: flex;
@@ -116,7 +130,7 @@
     </head>
     <body>
         <section id='switches'>
-            <!-- <div id='toggle-styes'>[styles]</div> -->
+            <!-- <div id='toggle-styes'>[t]</div> -->
             <div id='action-switches'>
                 <div id='back'>[<span id='back-button'><</span>]</div>
                 <div id='add'>[<span id='add-memo'>+</span>]</div>
