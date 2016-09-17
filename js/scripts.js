@@ -17,4 +17,6 @@
     }
 
     app.memos = memos;
+    app.bindToggles();
+    
 } ( window ));

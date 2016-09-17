@@ -1,0 +1,111 @@
+/* TODO
+    add prefixes
+    scroll menu if gets too long
+*/
+
+body, html {
+    font-family: monospace;
+    height: 100%;
+    width: 100%;
+    /*overflow-y: hidden;*/
+    padding: 0;
+    margin: 0;
+    background-color: #FEFEFA;
+    font-size: 12px;
+}
+
+#switches {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 0;
+    padding: 15px;
+    background: papayawhip;
+    position: fixed;
+    top: 0;
+    right: 0;
+    max-wdith: 250px;
+}
+
+#switches div.switch {
+    cursor: pointer;
+    opacity: .5;
+    -webkit-transition: opacity .2s ease-in;
+}
+
+#switches div.show {
+    opacity: 1;
+}
+
+#switches div.delete {
+    color: red;
+}
+
+#switches div.delete:not(#delete):hover {
+    text-decoration: line-through;
+}
+
+#action-switches {
+    border-top: 1px dashed black;
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+#action-switches, #action-switches div {
+    opacity: 1;
+    display: inline-block;
+}
+
+#action-switches #back { display: none; }
+#action-switches #add-memo:focus {
+    outline: none;
+}
+
+#action-switches span:hover, #action-switches div:hover {
+    cursor: pointer;
+    opacity: .5;
+}
+
+#container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 270px;
+    flex-wrap: wrap;
+}
+
+section {
+    margin: 30px;
+}
+
+section.list {
+    display: none;
+}
+
+section.list.show {
+    display: block;
+}
+
+section p {
+    padding: 10px;
+    background-color: honeydew;
+
+    -webkit-transition: background-color .2s ease-in;
+}
+
+section p:focus {
+    outline: none;
+    background-color: lavenderblush;
+}
+
+::selection {
+    background: lightcyan;
+}
+
+h1 {
+    font-weight: normal;
+}
+
+#styles {
+    width: 200px;
+}

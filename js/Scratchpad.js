@@ -1,6 +1,5 @@
 ( function ( window ) {
 
-
     class Scratchpad {
         constructor () {
             this.action = null;
@@ -62,8 +61,6 @@
         }
 
     }
-
-    // TODO create Data class?
 
     function setData ( keypath, data ) {
         localStorage.setItem( keypath, JSON.stringify( data ) );

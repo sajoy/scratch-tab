@@ -3,134 +3,10 @@
     <head>
         <meta charset="utf-8">
         <title>you got this ~*</title>
-        <style>
-
-        /* TODO move styles to separate file
-                add prefixes
-
-        */
-            body, html {
-                font-family: monospace;
-                height: 100%;
-                width: 100%;
-                /*overflow-y: hidden;*/
-                padding: 0;
-                margin: 0;
-                background-color: #FEFEFA;
-                font-size: 12px;
-            }
-
-            #switches {
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-end;
-                margin: 0;
-                padding: 15px;
-                background: papayawhip;
-                position: fixed;
-                top: 0;
-                right: 0;
-                max-wdith: 250px;
-            }
-
-            /* TODO deal with this whole opacity issue stuff */
-
-            #switches div:not(#action-switches) {
-            }
-
-            #switches div.switch {
-                cursor: pointer;
-                opacity: .5;
-                -webkit-transition: opacity .2s ease-in;
-            }
-
-            #switches div.show {
-                opacity: 1;
-            }
-
-            #switches div.delete {
-                color: red;
-            }
-
-            #switches div.delete:not(#delete):hover {
-                text-decoration: line-through;
-            }
-
-            #action-switches {
-                border-top: 1px dashed black;
-                margin-top: 5px;
-                padding-top: 5px;
-            }
-
-            #action-switches, #action-switches div {
-                opacity: 1;
-                display: inline-block;
-            }
-
-            #action-switches #back { display: none; }
-            #action-switches #add-memo:focus {
-                outline: none;
-            }
-
-            #action-switches span:hover, #action-switches div:hover {
-                cursor: pointer;
-                opacity: .5;
-            }
-
-            /* from https://codepen.io/flesler/pen/AEIFc */
-            /*[contenteditable=true]:empty:before {
-                content: attr(placeholder);
-                display: inline-block;
-            }*/
-
-            #container {
-                display: flex;
-                flex-direction: row;
-                justify-content: flex-end;
-                margin-right: 270px;
-                flex-wrap: wrap;
-            }
-
-            section {
-                margin: 30px;
-            }
-
-            section.list {
-                display: none;
-            }
-
-            section.list.show {
-                display: block;
-            }
-
-            section p {
-                padding: 10px;
-                background-color: honeydew;
-
-                -webkit-transition: background-color .2s ease-in;
-            }
-
-            section p:focus {
-                outline: none;
-                background-color: lavenderblush;
-            }
-
-            ::selection {
-                background: lightcyan;
-            }
-
-            h1 {
-                font-weight: normal;
-            }
-
-            #styles {
-                width: 200px;
-            }
-        </style>
+        <link rel="stylesheet" href="/styles.css">
     </head>
     <body>
         <section id='switches'>
-            <!-- <div id='toggle-styes'>[t]</div> -->
             <div id='action-switches'>
                 <div id='back'>[<span id='back-button'><</span>]</div>
                 <div id='add'>[<span id='add-memo'>+</span>]</div>
@@ -142,6 +18,5 @@
         <script src='js/Scratchpad.js' type='text/javascript'></script>
         <script src='js/memoView.js' type='text/javascript'></script>
         <script src='js/scripts.js' type='text/javascript'></script>
-
     </body>
 </html>
