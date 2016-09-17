@@ -28,21 +28,6 @@
         memoEle.appendChild( memoContent );
         document.getElementById( 'container' ).appendChild( memoEle );
 
-        // TODO
-        // - add [edit]
-        //   - show next to title on hover over title
-        //   - show below title:
-        //     - name
-        //     - position (number)
-        // - add [styles] section
-        //   - header color
-        //   - background color
-        //   - memo color
-        //   - memo:focus color
-        //   - highlight color
-        //   - tab title
-        //   - horizontal vs vertical scroll*
-        //   - memo default value ( rand0m yeaH )
 
         // event functions
         var toggleMemo = function ( e ) {
@@ -83,71 +68,86 @@
 
     }
 
-    function addButton () {
-        var addButton = document.getElementById( 'add-memo' );
-        addButton.addEventListener( 'click', askForName );
 
-        function askForName(e) {
-            toggleButton( 'add' );
+// add, delete, back buttons
 
-            // listen for enter key
-            addButton.addEventListener( 'keydown', function ( event ) {
-                if ( app.action !== 'adding' ) { return; }
-                if ( event.keyCode === 13 || event.which === 13 ) {
-                    var newMemo = new app.Memo( event.target.innerHTML );
-                    app.memos.addMemo( newMemo );
-                    app.initMemoView( newMemo );
-                    toggleButton( 'remove' );
-                }
-            });
-        }
+    var addButtonEle = document.getElementById( 'add-memo' );
+    var deleteButtonEle = document.getElementById( 'delete-memo' );
+    var backButton = document.getElementById( 'back' );
 
-        function toggleButton ( status ) {
+    addButtonEle.addEventListener( 'click', askForName );
+    deleteButtonEle.addEventListener( 'click', toggleDelete );
+    backButton.addEventListener( 'click', goBack );
 
-            var checkStatus = status === 'add',
-                edit = checkStatus,
-                html = checkStatus ? 'enter a name' : '+',
-                classFunc = checkStatus ? 'add' : 'remove',
-                focus = checkStatus ? 'focus' : 'blur';
-                action = checkStatus ? 'adding' : null;
+    function askForName(e) {
+        app.action = 'adding';
+        toggleAdd();
 
-            app.action = action
-            addButton.innerHTML = html;
-            addButton.parentElement.classList[classFunc]( 'show' );
-            addButton.setAttribute( 'contenteditable', edit );
-            addButton[focus]();
+        // listen for enter key
+        addButtonEle.addEventListener( 'keydown', function ( event ) {
+            if ( app.action !== 'adding' ) { return; }
+            if ( event.keyCode === 13 || event.which === 13 ) {
+                var newMemo = new app.Memo( event.target.innerHTML );
+                app.memos.addMemo( newMemo );
+                app.initMemoView( newMemo );
+            }
+        });
+    }
 
-            document.getElementById( 'delete' ).style.display = checkStatus ? 'none' : 'initial';
+    function toggleAdd () {
+        var adding = app.action == 'adding',
+            classFunc = adding ? 'add' : 'remove';
+
+        addButtonEle.innerHTML = adding ? 'enter a name' : '+';
+        addButtonEle.parentElement.classList[classFunc]( 'show' );
+        addButtonEle.setAttribute( 'contenteditable', adding );
+        addButtonEle.focus();
+
+        toggle( 'delete', adding );
+        toggle( 'back', !adding );
+    }
+
+    function toggleDelete() {
+        var deleting = app.action !== 'back';
+        if ( deleting ) { app.action = 'deleting'; }
+
+        var switches = document.getElementsByClassName('switch');
+        var classFunc = deleting ? 'add' : 'remove';
+
+        deleteButtonEle.innerHTML = deleting ? 'click a name to delete' : 'x';
+        deleteButtonEle.parentElement.classList[classFunc]('show');
+        deleteButtonEle.parentElement.classList[classFunc]('delete');
+
+        toggle( 'add', deleting );
+        toggle( 'back', !deleting );
+
+        for( var i = 0; i < switches.length; i++ ) {
+            switches[i].classList[classFunc]('delete');
+            switches[i].classList[classFunc]('show');
         }
     }
 
-    function deleteButton () {
-
-        var deleteButton = document.getElementById( 'delete-memo' );
-        deleteButton.addEventListener( 'click', toggleDelete );
-
-        var deleting;
-        function toggleDelete() {
-            deleting = deleting ? false : true;
-            app.action = deleting ? 'deleting' : null;
-
-            var switches = document.getElementsByClassName('switch');
-            var classFunc = deleting ? 'add' : 'remove';
-
-            deleteButton.parentElement.classList[classFunc]('show');
-            deleteButton.parentElement.classList[classFunc]('delete');
-
-            document.getElementById( 'add' ).style.display = deleting ? 'none' : 'initial';
-
-            for( var i = 0; i < switches.length; i++ ) {
-                switches[i].classList[classFunc]('delete');
-                switches[i].classList[classFunc]('show');
-            }
+    function goBack() {
+        switch (app.action) {
+            case 'adding':
+                app.action = 'back';
+                toggleAdd();
+                break;
+            case 'deleting':
+                app.action = 'back';
+                toggleDelete();
+                break;
+            default:
+                console.log('lol, what?')
+                break;
         }
+        app.action = null;
+    }
+
+    function toggle ( button, condition ) {
+        document.getElementById( button ).style.display = condition ? 'none' : 'initial';
     }
 
     app.initMemoView = initMemoView;
-    app.addButton = addButton;
-    app.deleteButton = deleteButton;
 
 })( window.app );

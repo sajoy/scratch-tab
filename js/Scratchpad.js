@@ -1,4 +1,4 @@
-( function ( module ) {
+( function ( window ) {
 
 
     class Scratchpad {
@@ -86,9 +86,8 @@
         localStorage.removeItem( keypath );
     }
 
-
     var app = new Scratchpad();
-    module.app = app;
+    window.app = app;
     app.Memos = Memos;
     app.Memo = Memo;
 

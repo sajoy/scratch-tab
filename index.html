@@ -28,8 +28,9 @@
                 padding: 15px;
                 background: papayawhip;
                 position: fixed;
-                bottom: 0;
-                left: 0;
+                top: 0;
+                right: 0;
+                max-wdith: 250px;
             }
 
             /* TODO deal with this whole opacity issue stuff */
@@ -65,11 +66,14 @@
                 opacity: 1;
                 display: inline-block;
             }
+
+            #action-switches #back { display: none; }
+
             #container {
                 display: flex;
                 flex-direction: row;
                 justify-content: flex-end;
-                margin-right: 100px;
+                margin-right: 270px;
                 flex-wrap: wrap;
             }
 
@@ -114,6 +118,7 @@
         <section id='switches'>
             <!-- <div id='toggle-styes'>[styles]</div> -->
             <div id='action-switches'>
+                <div id='back'>[<span id='back-button'><</span>]</div>
                 <div id='add'>[<span id='add-memo'>+</span>]</div>
                 <div id='delete'>[<span id='delete-memo'>x</span>]</div>
             </div>
