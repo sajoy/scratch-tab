@@ -22,7 +22,7 @@ body, html {
     padding: 15px;
     background: papayawhip;
     position: fixed;
-    top: 0;
+    bottom: 0;
     right: 0;
     max-wdith: 250px;
 }
