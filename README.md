@@ -1,12 +1,14 @@
-# scratch pad
+# scratch tab
+![scratch tab in ascii](http://i.imgur.com/4EJxldb.png)
+
 not a scratching post<br>
 not a fancy app<br>
-definitely a chrome extension<br>
+definitely a [chrome extension](https://chrome.google.com/webstore/detail/scratch-tab/gaehhklohpncohpacfhddemnekcahfim?hl=en-US)<br>
 definitely a place to remind yourself to PAY RENT TODAY OR ELSE<br>
 maybe a place to remind yourself YOU'RE AWESOME/OKAY/BEAUTIFUL.<br>
 just some virtual scratch paper in your new tab
 
-# roadmap
+## roadmap
 in no particular order; FYI we're taking the scenic (aka slow) route.
 
 - make note name and order editable
@@ -19,16 +21,20 @@ in no particular order; FYI we're taking the scenic (aka slow) route.
 - allow custom tab title
 - add hide/show all buttons
 
-# known bugs
+## known bugs
 - list of notes probably will not scroll
 
-# contributing
+## contributing
 
 If you want to, have at it! Here's what you need to know:
 - written in Vanilla JS ( a weird mix of ES5 & ES6 ...)
 - fork, clone into your local machine, to run as a local chrome extension see [these instructions](https://developer.chrome.com/extensions/getstarted#unpacked)
 
-# license
+## ascii art from
+[http://www.ascii-code.com/](http://www.ascii-code.com/)
+
+
+## license
 MIT License
 
 Copyright (c) 2016 Sarah Joy Calpo
